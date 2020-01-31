@@ -574,13 +574,12 @@
                     <connections>
                         <outlet property="dateOfBirtchLabel" destination="gCq-l9-1xp" id="wPC-iY-MSD"/>
                         <outlet property="datePicker" destination="iEM-MF-Agc" id="EeQ-5e-qR1"/>
-                        <outlet property="foto" destination="rvX-Bh-9CZ" id="csa-qs-9Bd"/>
                         <outlet property="infoDatePickerLabel" destination="gCq-l9-1xp" id="Y2f-F8-g5T"/>
                         <outlet property="infoSliderLabel" destination="9bf-Jm-dWR" id="pp8-83-Dqa"/>
                         <outlet property="passwordHiddenSwitch" destination="FNf-h7-ifw" id="CWU-bN-qzy"/>
                         <outlet property="randomPasswordSwitch" destination="x3d-FZ-L3h" id="hso-iS-1b1"/>
                         <outlet property="salaryInDollarsLabel" destination="9bf-Jm-dWR" id="vnc-2y-0GZ"/>
-                        <outlet property="salaryOfDollarsSider" destination="MYo-39-Icp" id="SaV-0e-UId"/>
+                        <outlet property="salaryOfDollarsSlider" destination="MYo-39-Icp" id="SaV-0e-UId"/>
                         <outlet property="userFloorSegmentedControl" destination="kVd-LE-tMb" id="poA-qo-6kA"/>
                         <outlet property="userImage" destination="rvX-Bh-9CZ" id="ZhD-u7-KT7"/>
                         <outlet property="userMaritalStatusSegmentedControl" destination="Mpm-lc-BQQ" id="SOB-jH-uhM"/>

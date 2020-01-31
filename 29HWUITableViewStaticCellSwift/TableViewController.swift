@@ -13,31 +13,25 @@ class TableViewController: UITableViewController, UITextFieldDelegate, UITextVie
     //MARK: Properties
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userStatusTextView: UITextView!
+    
     @IBOutlet weak var infoDatePickerLabel: UILabel!
     @IBOutlet weak var infoSliderLabel: UILabel!
+    @IBOutlet weak var dateOfBirtchLabel: UILabel!
+    @IBOutlet weak var salaryInDollarsLabel: UILabel!
+    
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var userFloorSegmentedControl: UISegmentedControl!
     @IBOutlet weak var userMaritalStatusSegmentedControl: UISegmentedControl!
     
     @IBOutlet var textFieldCollection: [UITextField]!
     @IBOutlet var labelCollection: [UILabel]!
-    
     @IBOutlet var buttons: [UIButton]!
     
+    @IBOutlet weak var salaryOfDollarsSlider: UISlider!
     
-    
-    @IBOutlet weak var dateOfBirtchLabel: UILabel!
-    
-    @IBOutlet weak var salaryOfDollarsSider: UISlider!
-    
-    @IBOutlet weak var salaryInDollarsLabel: UILabel!
     @IBOutlet weak var randomPasswordSwitch: UISwitch!
-    
     @IBOutlet weak var passwordHiddenSwitch: UISwitch!
-    
-    @IBOutlet weak var foto: UIImageView!
-    
-    
+
     let securitySimbol = "🔒"
     
     var userDefaults = UserDefaults()
@@ -48,7 +42,7 @@ class TableViewController: UITableViewController, UITextFieldDelegate, UITextVie
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        self.foto.image = UIImage(named: "inkognitoHW29")
+        self.userImage.image = UIImage(named: "inkognitoHW29")
         
         self.customizationUIElements()
         
@@ -79,7 +73,6 @@ class TableViewController: UITableViewController, UITextFieldDelegate, UITextVie
     }
     
     @IBAction func userDateOfBirchPicker(_ sender: UIDatePicker) {
-        print("userDateOfBirchPicker")
         
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "MM/dd/yyyy"
@@ -91,7 +84,6 @@ class TableViewController: UITableViewController, UITextFieldDelegate, UITextVie
     }
     
     @IBAction func salaryInDollarsSliderAction(_ sender: UISlider) {
-       print("salaryInDollarsSliderAction")
         
         let intSalary = Int(sender.value)
         self.salaryInDollarsLabel.text = String(format: "%@$", String(intSalary))
@@ -148,8 +140,6 @@ class TableViewController: UITableViewController, UITextFieldDelegate, UITextVie
             self.userDefaults.set("", forKey: UserDefaultsKey.randomPassword.rawValue)
         }
         
-        print("sender.isON = \(sender.isOn), self.self.randomPasswordSwitch.isON = \(self.randomPasswordSwitch.isOn)")
-        
         self.userDefaults.set(sender.isOn,
                               forKey: UserDefaultsKey.passwordSwitchState.rawValue)
     }
@@ -175,46 +165,40 @@ class TableViewController: UITableViewController, UITextFieldDelegate, UITextVie
 
     //MARK: UITextFieldDelegate
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        print("func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String)")
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
+
         var result = false
         
         switch textField {
             case _ where textField.isEqual(self.textFieldCollection[0]):
-            print(" textField.isEqual(self.textFieldCollection[0]")
             fallthrough
             case _ where textField.isEqual(self.textFieldCollection[1]):
-            print(" textField.isEqual(self.textFieldCollection[1]")
             result = self.textEditingNameIn(textField,
                                             shouldChangeCharactersIn: range,
                                             replacementString: string)
             case _ where textField.isEqual(self.textFieldCollection[2]):
-            print(" textField.isEqual(self.textFieldCollection[2]")
             result = self.editingLiginIn(textField,
                                          shouldChangeCharactersIn: range,
                                          replacementString: string)
             case _ where textField.isEqual(self.textFieldCollection[3]):
-            print(" textField.isEqual(self.textFieldCollection[3]")
             result = self.textEditingPassword(textField,
                                               shouldChangeCharactersIn: range,
                                               replacementString: string)
             case _ where textField.isEqual(self.textFieldCollection[4]):
-            print(" textField.isEqual(self.textFieldCollection[4]")
             result = self.textEditingAdressOfResidence(textField,
                                                        shouldChangeCharactersIn: range,
                                                        replacementString: string)
             case _ where textField.isEqual(self.textFieldCollection[5]):
-            print(" textField.isEqual(self.textFieldCollection[5]")
             result = textEditingPhoneNumber(textField,
                                             shouldChangeCharactersIn: range,
                                             replacementString: string)
             case _ where textField.isEqual(self.textFieldCollection[6]):
-            print(" textField.isEqual(self.textFieldCollection[6]")
             result = self.textEditingPostcode(textField,
                                               shouldChangeCharactersIn: range,
                                               replacementString: string)
             case _ where textField.isEqual(self.textFieldCollection[7]):
-            print(" textField.isEqual(self.textFieldCollection[7]")
             result = self.textEditingEmail(in: textField,
                                            range: range,
                                            replacementString: string)
@@ -321,7 +305,7 @@ class TableViewController: UITableViewController, UITextFieldDelegate, UITextVie
         } else {
             resultBool = false
         }
-        print("resultBool = \(resultBool)")
+
         return resultBool
     }
   
@@ -438,7 +422,7 @@ class TableViewController: UITableViewController, UITextFieldDelegate, UITextVie
         }
         
         textField.text = resultString
-        print("textField.text = \(textField.text)")
+
         self.userDefaults.set(resultString, forKey: UserDefaultsKey.phoneNumber.rawValue)
         
         return false
@@ -498,7 +482,7 @@ class TableViewController: UITableViewController, UITextFieldDelegate, UITextVie
     //MARK: UserDefaults
     
     private func saveData() {
-        print("saveDate()")
+        
         self.userDefaults.set(self.userStatusTextView.text,
                               forKey: UserDefaultsKey.statusText.rawValue)
         self.userDefaults.set(self.textFieldCollection[0].text ?? "",
@@ -509,7 +493,7 @@ class TableViewController: UITableViewController, UITextFieldDelegate, UITextVie
                               forKey: UserDefaultsKey.maritelStatus.rawValue)
         self.userDefaults.set(self.datePicker.date,
                               forKey: UserDefaultsKey.dateOfBirtch.rawValue)
-        self.userDefaults.set(self.salaryOfDollarsSider.value,
+        self.userDefaults.set(self.salaryOfDollarsSlider.value,
                               forKey: UserDefaultsKey.salaryInDollars.rawValue)
         self.userDefaults.set(self.textFieldCollection[2].text,
                               forKey: UserDefaultsKey.login.rawValue)
@@ -533,7 +517,7 @@ class TableViewController: UITableViewController, UITextFieldDelegate, UITextVie
     }
     
     private func getData() {
-        print("getData()")
+       
         self.userStatusTextView.text = self.userDefaults.object(forKey:
                                             UserDefaultsKey.statusText.rawValue) as? String
         self.textFieldCollection[0].text = self.userDefaults.object(forKey:
@@ -550,14 +534,13 @@ class TableViewController: UITableViewController, UITextFieldDelegate, UITextVie
                                     UserDefaultsKey.dateOfBirtch.rawValue) as? Date ?? Date()
         self.dateFormatter.dateFormat = "MM/dd/yyyy"
         self.dateOfBirtchLabel.text = self.dateFormatter.string(from: self.datePicker.date)
-        self.salaryOfDollarsSider.value = self.userDefaults.float(forKey:
+        self.salaryOfDollarsSlider.value = self.userDefaults.float(forKey:
                                                UserDefaultsKey.salaryInDollars.rawValue)
         self.textFieldCollection[2].text = self.userDefaults.object(forKey:
                                                 UserDefaultsKey.login.rawValue) as? String
         self.labelCollection[2].text = self.textFieldCollection[2].text
         self.randomPasswordSwitch.isOn = self.userDefaults.bool(forKey:
                                               UserDefaultsKey.passwordSwitchState.rawValue)
-        print("self.randomPasswordSwitch.isOn = \(self.randomPasswordSwitch.isOn )")
         let userPassword = self.userDefaults.object(forKey:
                                 UserDefaultsKey.password.rawValue) as? String
         let randomPassword = self.userDefaults.object(forKey:
@@ -582,7 +565,7 @@ class TableViewController: UITableViewController, UITextFieldDelegate, UITextVie
     }
     
     private func deleteData() {
-        print("deleteData()")
+
         let dictionary = self.userDefaults.dictionaryRepresentation()
         
         self.userStatusTextView.text = ""
@@ -626,7 +609,7 @@ class TableViewController: UITableViewController, UITextFieldDelegate, UITextVie
         self.datePicker.layer.cornerRadius = cornerRadius
         self.datePicker.maximumDate = Date()
         
-        self.salaryInDollarsLabel.text = String(format: "%@$", String(Int(self.salaryOfDollarsSider.value)))
+        self.salaryInDollarsLabel.text = String(format: "%@$", String(Int(self.salaryOfDollarsSlider.value)))
     }
 
 }
